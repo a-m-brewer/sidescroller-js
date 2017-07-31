@@ -4,7 +4,6 @@ var GAME = function() {
     this.now = 0;
     this.prev = this.timestamp();
     this.delta = 1000/60;
-    this.acc = 0;
 
     this.canvas = document.getElementById("gamecanvas");
     this.context = this.canvas.getContext('2d');
@@ -33,6 +32,12 @@ GAME.prototype.timestamp = function() {
     return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
 }
 
+GAME.prototype.update_time = function() {
+    this.now = this.timestamp();
+    this.delta = this.now - this.prev;
+    this.prev = this.now; 
+}
+
 // GAME START
 
 var g = new GAME();
@@ -40,11 +45,7 @@ var g = new GAME();
 function gameloop() {
     requestAnimationFrame(gameloop);
 
-    g.now = g.timestamp();
-    g.delta = g.now - g.prev;
-    g.prev = g.now;
-    g.acc += g.delta;
-
+    g.update_time();
     g.move(g.delta);
     g.draw();
 }
