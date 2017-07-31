@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="css/game.css">
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <script src="./js/libs/jquery-3.2.1.min.js"></script>
+  <title>SideScroller</title>
+</head>
+
+  <body>
+    <div class="cont">
+      <center>
+      <canvas id="gamecanvas" width="1280" height="720"></canvas>
+      </center>
+    </div>
+    <script src="js/graphics_common.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+          // request anomation frame
+          (function() {
+              var lastTime = 0;
+              var vendors = ['ms', 'moz', 'webkit', 'o'];
+              for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                  window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+                  window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
+                                            || window[vendors[x]+'CancelRequestAnimationFrame'];
+              }
+          
+              if (!window.requestAnimationFrame)
+                  window.requestAnimationFrame = function(callback, element) {
+                      var currTime = new Date().getTime();
+                      var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                      var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+                        timeToCall);
+                      lastTime = currTime + timeToCall;
+                      return id;
+                  };
+          
+              if (!window.cancelAnimationFrame)
+                  window.cancelAnimationFrame = function(id) {
+                      clearTimeout(id);
+                  };
+          }());
+    </script>
+  </body>
+</html>
