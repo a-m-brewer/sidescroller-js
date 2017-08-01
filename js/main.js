@@ -7,25 +7,21 @@ var GAME = function() {
 
     this.canvas = document.getElementById("gamecanvas");
     this.context = this.canvas.getContext('2d');
-    this.drawshape = new Draw(this.context);
 
-    this.x = 0;
-    this.y = 0;
-    this.speed_x = 2;
-    this.speed_y = 2;
+    this.drawshape = new Draw(this.context);
+    this.player = new PLAYER(this.context, BLOCK_SIZE);
 }
 
 GAME.prototype.move = function(dt) {
-    this.x += this.speed_x * dt * 60 / 1000;
-    this.y += this.speed_y * dt * 60 / 1000;
+    this.player.move(dt);
 
-    if (this.x < 0 || this.x >= this.canvas.width - BLOCK_SIZE) {this.speed_x *= -1};
-    if (this.y < 0 || this.y >= this.canvas.height - BLOCK_SIZE) {this.speed_y *= -1};
+    if (this.player.x <= 0 || this.player.x >= this.canvas.width - this.player.x_size) {this.player.x_vel *= -1};
+    if (this.player.y <= 0 || this.player.y >= this.canvas.height - this.player.y_size) {this.player.y_vel *= -1};
 }
 
 GAME.prototype.draw = function() {
     this.drawshape.rectangle(0, 0, this.canvas.width, this.canvas.height, "red");
-    this.drawshape.square(this.x, this.y, BLOCK_SIZE, 'green');
+    this.player.draw();
 }
 
 GAME.prototype.timestamp = function() {
@@ -50,6 +46,15 @@ function gameloop() {
     g.draw();
 }
 
-window.onload = function() { 
+window.onload = function() {
+    g.player.set_size(1,2);
+    g.player.set_pos(90, 90);
+    g.player.set_vel(2, 3); 
     requestAnimationFrame(gameloop);
 }
+
+/*
+    Glitches
+
+    - tab away and char falls out of map
+*/
