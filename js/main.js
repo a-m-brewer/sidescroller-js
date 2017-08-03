@@ -60,8 +60,8 @@ function gameloop() {
 window.onload = function() {
     g.player.set_size(1,2);
     g.player.set_pos(90, 90);
-    g.player.set_vel(2, 0); 
-    g.camera.set_speed(2, 0);
+    g.player.set_vel(10, 0); 
+    g.camera.set_speed(10, 0);
     g.map.blank_map();
     requestAnimationFrame(gameloop);
 }

@@ -31,7 +31,7 @@ Draw.prototype.square_with_border = function(top_left, top_right, size, main_col
 	this.context.fillStyle = border_color;
 	this.context.fillRect(top_left, top_right, size, size);
 	this.context.fillStyle = main_colour;
-	this.context.fillRect(top_left - border_width, top_right - border_width, size - (border_width*2), size - (border_width*2));
+	this.context.fillRect(top_left + border_width, top_right + border_width, size - (border_width*2), size - (border_width*2));
 }
 
 Draw.prototype.circle = function(center_x, center_y, radius, colour) {
